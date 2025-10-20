@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirCrop | الزراعة بالطائرات المسيرة والذكاء الاصطناعي</title>
+    <link rel="icon" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #018D6B;
+            --dark-bg: #0F1815;
+            --light-bg: #F6FAF9;
+            --white: #FFFFFF;
+            --dark-text: #0F1815;
+            --light-text: #6B7280;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--white);
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Saira", sans-serif;
+            font-weight: 500;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--dark-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #016e54;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 6rem 0 4rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-image: linear-gradient(rgba(15, 24, 21, 0.9), rgba(15, 24, 21, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F1815"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="%23018D6B" stroke-width="1" stroke-opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-light {
+            background-color: var(--light-bg);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-green);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .about-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            line-height: 1.8;
+        }
+
+        .video-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover video {
+            transform: scale(1.02);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(1, 141, 107, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(1, 141, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(1, 141, 107, 0);
+            }
+        }
+
+        /* Why Us Section */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            padding: 2.5rem;
+            border-radius: 16px;
+            background: var(--white);
+            box-shadow: var(--card-shadow);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .info-card p {
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+
+        .info-card.highlight {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .info-card.highlight p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .highlight-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem;
+            color: var(--white);
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            transition: transform 0.3s ease;
+            grid-column: span 4;
+            grid-row: span 2;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .highlight-card h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin: 0;
+        }
+
+        .image-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-card p {
+            color: var(--light-text);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            color: var(--primary-green);
+            font-size: 2rem;
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(1, 141, 107, 0.1);
+            border-radius: 12px;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #E6F5F1;
+            color: var(--primary-green);
+            padding: 0.35rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Monitoring Section */
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 868px) {
+            .monitoring-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .monitoring-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .monitoring-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .monitoring-icon {
+            color: var(--primary-green);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .monitoring-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .monitoring-card > p {
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+
+        .monitoring-highlight {
+            padding: 1.5rem;
+            background: rgba(1, 141, 107, 0.05);
+            border-right: 4px solid var(--primary-green);
+            border-radius: 4px;
+            margin-top: 1.5rem;
+        }
+
+        .monitoring-highlight p {
+            color: var(--primary-green);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* News Section */
+        .news-container {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 0;
+            scrollbar-width: none;
+        }
+
+        .news-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .news-card {
+            flex: 0 0 350px;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-green);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--white);
+            border: none;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+
+        .faq-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-chevron.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a1613;
+            color: #d1d5db;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        .footer-logo span {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-about {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #d1d5db;
+            transition: color 0.3s ease;
+            font-size: 1.25rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links a:hover {
+            color: var(--white);
+            background: var(--primary-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .why-us-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .info-card, .highlight-card, .image-card {
+                grid-column: 1 / -1 !important;
+            }
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 968px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: 0;
+                width: 100%;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                z-index: 99;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-green {
+            color: var(--primary-green);
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #home, #about, #why-us, #products, #monitoring, #news, #faq, #contact {
+            scroll-margin-top: 100px;
+        }
+                .hero {
+            background-color: #0F1815;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            color: #F6FAF9;
+            font-family: 'Saira', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: #F5F9F8;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #018D6B;
+        }
+
+        .waitlist-btn {
+            background: transparent;
+            border: 1px solid #018D6B;
+            color: #018D6B;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .waitlist-btn:hover {
+            background: #018D6B;
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            background: #0F1815;
+            border-top: 1px solid #018D6B;
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            max-width: 800px;
+            margin: 2rem auto 3rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero-title {
+            color: #F6FAF9;
+            font-family: 'Saira', sans-serif;
+            font-weight: 500;
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 5rem;
+            }
+        }
+
+        .hero-title span {
+            color: #018D6B;
+        }
+
+        .hero-description {
+            color: #F5F9F8;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Product Presentation */
+        .product-presentation {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 300px;
+        }
+
+        @media (min-width: 640px) {
+            .product-presentation {
+                height: 400px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .product-presentation {
+                height: 500px;
+            }
+        }
+
+        .presentation-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, #0F1815 100%);
+            z-index: 0;
+        }
+
+        .dashboard-image {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            z-index: 10;
+            mask-image: linear-gradient(to bottom, white, transparent);
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-image {
+                width: 90%;
+            }
+        }
+
+        .drone-image {
+            position: absolute;
+            bottom: -15%;
+            left: 0;
+            width: 50%;
+            object-fit: contain;
+            z-index: 20;
+            transition: all 0.3s ease-in-out;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .drone-image {
+                display: block;
+            }
+        }
+
+        /* Support Section */
+        .support-section {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .support-title {
+            color: #F5F9F8;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .support-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .support-logo-item {
+            flex-shrink: 0;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #2a3a35;
+            background: rgba(15, 24, 21, 0.5);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 96px;
+        }
+
+        .support-logo-item:hover {
+            border-color: #018D6B;
+            background: rgba(15, 24, 21, 0.8);
+        }
+
+        .support-logo {
+            width: 100%;
+            height: auto;
+            max-height: 80%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.25) drop-shadow(0 0 4px rgba(1, 141, 107, 0.3));
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .support-logo-item {
+                width: 120px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <img src="assets/logo.png" alt="شعار AirCrop">
+                <span>AIRCROP</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#why-us">لماذا نحن</a></li>
+                <li><a href="#products">المنتجات</a></li>
+                <li><a href="#monitoring">المراقبة</a></li>
+                <li><a href="#news">الأخبار</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+            <a href="#contact" class="cta-button">ابدأ الآن</a>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page / Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <!-- Hero Content -->
+                <div class="hero-content">
+                    <h1 class="hero-title">استفد من قوة <span>الطائرات المسيرة</span> و <span>الذكاء الاصطناعي</span> كما لم يحدث من قبل!</h1>
+                    <p class="hero-description">لم يكن تحقيق أقصى قدر من الكفاءة مع توفير الوقت والمال والموارد الزراعية بهذه البساطة من قبل.</p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="cta-button">استكشف حلولنا</a>
+                        <a href="#contact" class="secondary-button">اتصل بنا</a>
+                    </div>
+                </div>
+
+                <!-- Dashboard and Drone Image -->
+                <div class="product-presentation">
+                    <div class="presentation-gradient"></div>
+                    <img src="assets/dashboard.png" alt="لوحة تحكم AirCrop" class="dashboard-image">
+                    <img src="assets/drone.png" alt="طائرة مسيرة" class="drone-image">
+                </div>
+
+                <!-- Trust Section -->
+                <div class="support-section">
+                    <h3 class="support-title">بدعم من</h3>
+                    <div class="support-logos">
+                        <div class="support-logo-item">
+                            <img src="support/futuris.webp" alt="Futuris" class="support-logo">
+                        </div>
+                        <div class="support-logo-item">
+                            <img src="support/startupdz.webp" alt="Startup DZ" class="support-logo">
+                        </div>
+                        <div class="support-logo-item">
+                            <img src="support/ensaincubator.png" alt="ENSA Incubator" class="support-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">عن AirCrop</h2>
+                <p class="section-subtitle">نحن نجمع بين التكنولوجيا المبتكرة والخبرة الزراعية العميقة لتقديم حلول فعالة ومستدامة</p>
+                
+                <div class="about-section">
+                    <div class="about-content">
+                        <p>AirCrop هي منصة خدمة الطائرات المسيرة (DaaS) التي تستخدم الذكاء الاصطناعي لمراقبة صحة المحاصيل في الوقت الفعلي. نحن نساعد المزارعين على اكتشاف أمراض النباتات وغزو الآفات ومشاكل الري مبكرًا - قبل أن تؤثر على المحصول.</p>
+                        <p>من خلال الجمع بين التصوير الجوي والتحليلات الذكية، تمكن AirCrop المزارعين من اتخاذ قرارات زراعية أكثر ذكاءً. تقدم منصتنا المدعومة بالذكاء الاصطناعي رؤى قابلة للتنفيذ توفر الموارد وتقلل من استخدام المواد الكيميائية وتعزز الإنتاجية.</p>
+                        <a href="#products" class="cta-button mt-4">اكتشف ميزاتنا</a>
+                    </div>
+                    
+                    <div class="video-container">
+                        <video poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><rect width='800' height='450' fill='%23f5f5f5'/><text x='400' y='225' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'>فيديو تعريفي عن AirCrop</text></svg>">
+                            <source src="videos/intro.mp4" type="video/mp4">
+                            متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section id="why-us" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">لماذا تختار العمل معنا؟</h2>
+                <p class="section-subtitle">نحن نجمع بين التكنولوجيا المبتكرة والخبرة الزراعية العميقة لتقديم حلول فعالة ومستدامة وفعالة من حيث التكلفة</p>
+                
+                <div class="why-us-grid">
+                    <div class="info-card" style="grid-column: span 4;">
+                        <h3>ثورة في الزراعة مع <span class="text-green">الدقة</span></h3>
+                        <p>نحن نأتي بالدقة والكفاءة في إدارة المحاصيل، مما يعزز المحصول ويقلل الهدر.</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <img src="assets/drone.png" alt="طائرة مسيرة" class="highlight-card-bg">
+                        <h3>الزراعة المعززة بواسطة</h3>
+                        <h2>الطائرات المسيرة والذكاء الاصطناعي</h2>
+                    </div>
+                    
+                    <div class="image-card" style="grid-column: span 2;">
+                        <img src="why_us_img/clock.png" alt="موفر للوقت" style="max-width: 80%;">
+                        <h3>موفر للوقت</h3>
+                        <p>وفر الوقت مع المراقبة الآلية وإعداد التقارير</p>
+                    </div>
+                    
+                    <div class="image-card" style="grid-column: span 2;">
+                        <img src="why_us_img/7allouf.png" alt="اقتصادي" style="max-width: 80%;">
+                        <h3>اقتصادي</h3>
+                        <p>قلل التكاليف التشغيلية مع الزراعة الدقيقة</p>
+                    </div>
+                    
+                    <div class="image-card" style="grid-column: span 4;">
+                        <img src="why_us_img/earth.png" alt="آمن ومستدام" style="max-width: 80%;">
+                        <h3>آمن ومستدام</h3>
+                        <p>ممارسات زراعية صديقة للبيئة</p>
+                    </div>
+                    
+                    <div class="info-card highlight" style="grid-column: span 4;">
+                        <h3>حلول <span>مخصصة</span></h3>
+                        <p>نحن نقدم بيانات في الوقت الفعلي لتمكين المزارعين من اتخاذ قرارات مستنيرة وقابلة للتنفيذ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products/Features Section -->
+        <section id="products" class="section">
+            <div class="container">
+                <h2 class="section-title">حلولنا</h2>
+                <p class="section-subtitle">اكتشف مجموعة كاملة من ميزات الطائرات المسيرة الذكية المصممة لتحسين الإنتاجية وتقليل التكاليف</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-content">
+                            <h3>الاستكشاف</h3>
+                            <p>اكتشف مشاكل صحة النبات مبكرًا باستخدام الاستكشاف الميداني بالطائرات المسيرة. نظامنا يكشف عن الإجهاد والأمراض والآفات قبل أن تنتشر.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-content">
+                            <h3>التقارير</h3>
+                            <p>احصل على تقارير فورية وسهلة القراءة مع رؤى قابلة للتنفيذ. اعرف بالضبط ما يحدث في حقلك في أي وقت وأي مكان.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🗺️</div>
+                        <div class="feature-content">
+                            <h3>رسم الخرائط</h3>
+                            <p>أنشئ خرائط ميدانية عالية الدقة باستخدام التصوير الجوي. حدد أنماط المحاصيل والمناطق المشكلة واختلافات النمو على نطاق واسع.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💧</div>
+                        <div class="feature-content">
+                            <h3>الرش</h3>
+                            <p>قل وداعًا للرش الشامل. تطبق طائراتنا المسيرة العلاجات فقط حيثما تكون هناك حاجة، مما يقلل من استخدام المواد الكيميائية ويحمي نباتاتك وميزانيتك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">👨‍💻</div>
+                        <div class="feature-content">
+                            <h3>المراقبة</h3>
+                            <p>تتبع تقدم المحاصيل في الوقت الفعلي مع لوحة التحكم البديهية لدينا. احصل على تنبيهات عندما تكون هناك حاجة للانتباه وراقب التحسينات بمرور الوقت.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <div class="feature-content">
+                            <h3>الاستشارات</h3>
+                            <p>هل تحتاج إلى إرشاد؟ خبراؤنا من المهندسين الزراعيين والمهندسين هنا لدعمك في تفسير البيانات وتقديم النصائح الاستراتيجية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-content">
+                            <h3>التحليلات المتقدمة <span class="badge">PRO</span></h3>
+                            <p>افتح مقاييس أداء مفصلة مع محرك التحليلات المتقدم لدينا. توقع المحاصيل، وحسن المدخلات، وقم بمقارنة صحة الحقل.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-content">
+                            <h3>رؤى مدعومة بالذكاء الاصطناعي <span class="badge">PRO</span></h3>
+                            <p>دع الذكاء الاصطناعي لدينا يقوم بالمهمة الشاقة. تلقي تنبيهات وتوقعات ذكية مخصصة لمحاصيلك وتربتك وظروفك المناخية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Section -->
+        <section id="monitoring" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">المراقبة مجهزة لك</h2>
+                <p class="section-subtitle">جرب مراقبة المحاصيل في الوقت الفعلي المدعومة بالذكاء الاصطناعي المتقدم وتحليلات البيانات</p>
+                
+                <div class="monitoring-grid">
+                    <div class="monitoring-card">
+                        <div class="monitoring-icon">🌱</div>
+                        <h3>صحة النبات</h3>
+                        <p>حدد وافهم أمراض المحاصيل بدقة. يلتقط نظامنا صورًا عالية الدقة ويستخدم الذكاء الاصطناعي للكشف عن علامات المرض أو تلف الآفات أو الإجهاد.</p>
+                        <div class="monitoring-highlight">
+                            <p>تحليل كامل لصحة المحاصيل مع تصنيف الأمراض، وخرائط حرارية بصرية وتجزئة المناطق المتأثرة، ورؤى قابلة للتنفيذ للعلاج أو الوقاية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="monitoring-card">
+                        <div class="monitoring-icon">💧</div>
+                        <h3>الري</h3>
+                        <p>يساعدك AirCrop على مراقبة فعالية الري في جميع أنحاء حقلك. من اكتشاف البقع الجافة إلى تحديد المناطق المغمورة بالمياه، تساعدك منصتنا على إدارة المياه بكفاءة أكبر.</p>
+                        <div class="monitoring-highlight">
+                            <p>خرائط ري مفصلة وتقييمات لمستويات الرطوبة، ودعم استراتيجيات توفير المياه وتعديلات النظام، وتحسين مرونة المحاصيل مع تقليل هدر الموارد.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <div class="container">
+                <h2 class="section-title">أحدث أخبارنا</h2>
+                <p class="section-subtitle">ابق على اطلاع بأحدث إنجاعات AirCrop وابتكاراتها في مجال التكنولوجيا الزراعية</p>
+                
+                <div class="news-container">
+                    <div class="news-card">
+                        <img src="latest_news/startup.png" alt="تحدي الشركات الناشئة في الجزائر" class="news-image">
+                        <div class="news-content">
+                            <h3>تم الاعتراف بـ AirCrop في تحدي الشركات الناشئة في الجزائر 2024</h3>
+                            <p>تم اختيار AirCrop كواحدة من أكثر الشركات الناشئة الواعدة في تحدي الشركات الناشئة في الجزائر 2024، حيث عرضت حلولاً مبتكرة في قطاع التكنولوجيا الزراعية.</p>
+                            <a href="https://leancubator.co/article/algeria-startup-challenge-2024-les-startup-les-plus-prometteuses-2" class="cta-button" style="margin-top: 1rem;">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="latest_news/agritech.png" alt="تحدي التكنولوجيا الزراعية" class="news-image">
+                        <div class="news-content">
+                            <h3>AirCrop تفوز بتحدي التكنولوجيا الزراعية 2024</h3>
+                            <p>كانت AirCrop من بين الفائزين الأربعة الذين تم تكريمهم في تحدي التكنولوجيا الزراعية 2024، معترفًا بحلولها التكنولوجية الزراعية الرائدة.</p>
+                            <a href="https://www.algeriainvest.com/premium-news/agritech-challenge-2024-4-laureats-primes" class="cta-button" style="margin-top: 1rem;">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section section-light">
+            <div class="container">
+                <h2 class="section-title">الأسئلة الشائعة</h2>
+                <p class="section-subtitle">كل ما تحتاج لمعرفته حول المنتج والفواتير</p>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>هل تقدمون عرضًا تجريبيًا؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نعم! نحن نقدم عروضًا تجريبية مخصصة لتوضيح كيف يمكن لـ AirCrop مراقبة محاصيلك واكتشاف المشكلات مبكرًا. اتصل بنا لجدولة عرض تجريبي مخصص لاحتياجات مزرعتك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>ما هي المناطق التي تغطونها؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نحن نعمل في مناطق محددة. يرجى الاتصال بنا مع موقعك لتأكيد التغطية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>هل يمكنني طلب خدمات متعددة في مهمة واحدة؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نعم، يمكن تجميع خدمات متعددة في مهمة واحدة للكفاءة والفعالية من حيث التكلفة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>كيف يتم تحديد الأسعار؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>يعتمد التسعير على الخدمات المطلوبة، وحجم المزرعة، والموقع. اتصل بنا للحصول على عرض أسعار مخصص.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>هل يمكنني الحصول على فاتورة بمعلومات مزرعتي؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نعم، نحن نقدم فواتير تتضمن تفاصيل مزرعتك وأي وثائق مطلوبة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>هل بياناتي آمنة؟</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>بالتأكيد. نحن نتبع أفضل الممارسات في الصناعة لضمان حماية بياناتك وإمكانية الوصول إليها فقط من قبلك.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">اتصل بنا</h2>
+                <p class="section-subtitle">اتصل بنا لمعرفة المزيد حول كيفية تحويل AirCrop لعملياتك الزراعية</p>
+                
+                <div class="text-center">
+                    <p class="mb-4">البريد الإلكتروني: contact@aircrop.io<br>الهاتف: 213 560 82 88 89+<br>العنوان: الحراش، الجزائر العاصمة، الجزائر</p>
+                    <a href="mailto:contact@aircrop.io" class="cta-button">اتصل بنا</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="شعار AirCrop">
+                        <span>AIRCROP</span>
+                    </div>
+                    <p class="footer-about">استفد من قوة الطائرات المسيرة والذكاء الاصطناعي كما لم يحدث من قبل.</p>
+                    <div class="footer-contact">
+                        <p>contact@aircrop.io</p>
+                        <p>213 560 82 88 89+</p>
+                        <p>الحراش، الجزائر العاصمة، الجزائر</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white mb-4">الجوائز</h4>
+                    <p>🏆 الفائزون بالجائزة الأولى في التكنولوجيا الزراعية 2024</p>
+                    <p>🚀 الفائزون بالجائزة الثانية في ASC 2024</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white mb-4">تواصل معنا</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#privacy">سياسة الخصوصية</a>
+                    <a href="#terms">شروط الاستخدام</a>
+                </div>
+                <p>© 2025 Aircrop. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to handle navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-links');
+            
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Highlight active navigation link on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // FAQ functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const chevron = question.querySelector('.faq-chevron');
+                    
+                    // Close other open FAQs
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer && ans.classList.contains('active')) {
+                            ans.classList.remove('active');
+                            ans.previousElementSibling.querySelector('.faq-chevron').classList.remove('rotated');
+                        }
+                    });
+                    
+                    answer.classList.toggle('active');
+                    chevron.classList.toggle('rotated');
+                });
+            });
+            
+            // Video play functionality
+            const videoOverlay = document.querySelector('.video-overlay');
+            const video = document.querySelector('video');
+            
+            if (videoOverlay && video) {
+                videoOverlay.addEventListener('click', () => {
+                    video.play();
+                    video.controls = true;
+                    videoOverlay.style.display = 'none';
+                });
+            }
+        });
+         // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.navbar') && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
